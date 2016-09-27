@@ -16,14 +16,15 @@ class SettingController extends Controller
     public function getSetting()
     {
         if (Auth::guard('admin')->check()) {
+            $admin_id = Auth::guard('admin')->user()->id;
             $settings = DB::table('settings')->where('index', '0')->get();
             if($settings[0]->file_dir == null){
                 DB::table('settings')->where('index', '0')->update(['file_dir' => '../']);
                 $settings = DB::table('settings')->where('index', '0')->get();
-                return view('admin.auth.setting', ['settings' => $settings]);
+                return view('admin.auth.setting', ['settings' => $settings, 'admin_id' => $admin_id]);
             }
             else{
-                return view('admin.auth.setting', ['settings' => $settings]);
+                return view('admin.auth.setting', ['settings' => $settings, 'admin_id' => $admin_id]);
             }
         } else {
             return Redirect::to('admin/login');
