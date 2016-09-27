@@ -88,8 +88,14 @@ class RegisterController extends Controller
             return redirect('/register')->with('NotFound', true)->with('message', '通行碼不對喔');
         }*/
 
-        $this->guard()->login($this->create($request->all()));
-        DB::table('users')->where('studentID',Auth::user()->studentID)->update(['online' => 'on']);
+	$inclass = DB::table('student_ids')->where('ID',$request->studentID)->get();
+
+	if(current($inclass) != NULL){
+	   $this->guard()->login($this->create($request->all()));
+	   DB::table('users')->where('studentID',Auth::user()->studentID)->update(['online' => 'on']);
+	}else{
+	   return redirect('/auth/register')->with('NotFound',true)->with('message','Wrong ID.');
+	}
 
         //return redirect($this->redirectPath());
         return Redirect::to("/sendmail");
