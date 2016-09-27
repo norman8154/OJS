@@ -11,33 +11,35 @@
             <div class="row">
                 <form id="setting-form" method="POST" action="/admin/setting">
                     {!! csrf_field() !!}
-                    <div class="col-sm-2">
-                        <h4 class="tc-white">允許admin註冊</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <label class="switch tc-white">
-                            @if(strcmp($settings[0]->allow_admin_register, "on") == 0)
-                                <input type="checkbox" id="admin_register" name="allow" checked>
-                            @else
-                                <input type="checkbox" id="admin_register" name="allow">
-                            @endif
-                            <div class="slider round"></div>
-                        </label>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="input-group">
-                        <span class="input-group-btn">
-                            <a href="/admin/setting/adminverify" class="btn btn-success btn-rd"
-                               type="button">生成admin通行碼</a>
-                        </span>
-                            @if(!empty(Session::get('admin_verify')))
-                                <input type="text" class="form-control btn-rd" autofocus onfocus="this.select()"
-                                       value={{ Session::get('admin_verify') }} >
-                            @else
-                                <input type="text" class="form-control btn-rd" value="" disabled>
-                            @endif
+                    @if($admin_id == 0)
+                        <div class="col-sm-2">
+                            <h4 class="tc-white">允許admin註冊</h4>
                         </div>
-                    </div>
+                        <div class="col-sm-2">
+                            <label class="switch tc-white">
+                                @if(strcmp($settings[0]->allow_admin_register, "on") == 0)
+                                    <input type="checkbox" id="admin_register" name="allow" checked>
+                                @else
+                                    <input type="checkbox" id="admin_register" name="allow">
+                                @endif
+                                <div class="slider round"></div>
+                            </label>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                            <span class="input-group-btn">
+                                <a href="/admin/setting/adminverify" class="btn btn-success btn-rd"
+                                type="button">生成admin通行碼</a>
+                            </span>
+                                @if(!empty(Session::get('admin_verify')))
+                                    <input type="text" class="form-control btn-rd" autofocus onfocus="this.select()"
+                                           value={{ Session::get('admin_verify') }} >
+                                @else
+                                    <input type="text" class="form-control btn-rd" value="" disabled>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
                 </form>
                 <script>
                     $('#admin_register').click(function () {
