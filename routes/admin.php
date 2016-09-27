@@ -16,7 +16,8 @@ Route::get('admin/setting', 'AdminAuth\SettingController@getSetting');
 Route::post('admin/setting', 'AdminAuth\SettingController@postUpdate');
 Route::get('admin/setting/adminverify', 'AdminAuth\SettingController@postAdminVerify');
 Route::post('admin/setting/filedir', 'AdminAuth\SettingController@fileDir');
-
+Route::get('admin/addid', 'AdminAuth\AddIDController@getAddID');
+Route::post('admin/addid', 'AdminAuth\AddIDController@postAddID');
 
 
 
